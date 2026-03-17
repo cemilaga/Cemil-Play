@@ -1,77 +1,78 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Cemil Play V2</title>
-
+<title>Cemil Play</title>
 <style>
-
 body{
 background:black;
 color:white;
 text-align:center;
 font-family:Arial;
 }
-
 canvas{
 background:black;
 border:3px solid white;
 }
-
-.controls{
-margin-top:20px;
-}
-
-.controls button{
+button{
 width:70px;
 height:70px;
 font-size:25px;
 margin:5px;
 }
-
 </style>
 </head>
 
 <body>
 
-<h1>🎮 Cemil Play V2</h1>
+<h1>🎮 Cemil Play</h1>
 
 <canvas id="game" width="400" height="400"></canvas>
 
-<div class="controls">
-<br>
+<br><br>
+
 <button onclick="move('up')">⬆️</button><br>
 <button onclick="move('left')">⬅️</button>
 <button onclick="move('down')">⬇️</button>
 <button onclick="move('right')">➡️</button>
-</div>
 
 <script>
 
 let canvas = document.getElementById("game");
 let ctx = canvas.getContext("2d");
 
-let x = 200;
-let y = 200;
-let size = 20;
+let x=200;
+let y=200;
 
 function draw(){
 ctx.clearRect(0,0,400,400);
-
 ctx.fillStyle="lime";
-ctx.fillRect(x,y,size,size);
+ctx.fillRect(x,y,20,20);
 }
 
-function move(dir){
+function move(d){
 
-if(dir=="up"){y-=20;}
-if(dir=="down"){y+=20;}
-if(dir=="left"){x-=20;}
-if(dir=="right"){x+=20;}
+if(d=="up"){y-=20;}
+if(d=="down"){y+=20;}
+if(d=="left"){x-=20;}
+if(d=="right"){x+=20;}
 
 draw();
 }
 
 document.addEventListener("keydown",function(e){
 
-if(e.key=="ArrowUp"){move("up")}
+if(e.key=="ArrowUp")move("up");
+if(e.key=="ArrowDown")move("down");
+if(e.key=="ArrowLeft")move("left");
+if(e.key=="ArrowRight")move("right");
+
+});
+
+draw();
+
+</script>
+
+<h2 style="margin-top:40px;">İSMAİL OĞUZHAN</h2>
+
+</body>
+</html>
