@@ -5,43 +5,12 @@
 <title>Cemil Play V2</title>
 
 <style>
+
 body{
-font-family:Arial;
-background:#0f0f0f;
+background:black;
 color:white;
 text-align:center;
-margin:0;
-}
-
-h1{
-margin:20px;
-font-size:40px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:15px;
-padding:20px;
-}
-
-button{
-padding:20px;
-font-size:16px;
-border:none;
-border-radius:10px;
-background:#00c3ff;
-color:white;
-cursor:pointer;
-}
-
-button:hover{
-background:#008cff;
-}
-
-#gameArea{
-display:none;
-margin-top:20px;
+font-family:Arial;
 }
 
 canvas{
@@ -50,7 +19,7 @@ border:3px solid white;
 }
 
 .controls{
-margin-top:15px;
+margin-top:20px;
 }
 
 .controls button{
@@ -59,42 +28,13 @@ height:70px;
 font-size:25px;
 margin:5px;
 }
+
 </style>
 </head>
 
 <body>
 
 <h1>🎮 Cemil Play V2</h1>
-
-<div class="grid">
-
-<button onclick="startSnake()">🐍 Snake</button>
-<button onclick="startGame('Flappy Bird')">🐦 Flappy Bird</button>
-<button onclick="startGame('Tetris')">🧱 Tetris</button>
-<button onclick="startGame('Pong')">🏓 Pong</button>
-<button onclick="startGame('Breakout')">🧱 Breakout</button>
-
-<button onclick="startGame('Space Shooter')">🚀 Space</button>
-<button onclick="startGame('Car Racing')">🚗 Car</button>
-<button onclick="startGame('Maze')">🧠 Maze</button>
-<button onclick="startGame('Puzzle')">🧩 Puzzle</button>
-<button onclick="startGame('Basketball')">🏀 Basket</button>
-
-<button onclick="startGame('Soccer')">⚽ Soccer</button>
-<button onclick="startGame('Stack')">🏗️ Stack</button>
-<button onclick="startGame('Helix')">🌀 Helix</button>
-<button onclick="startGame('Knife')">🔪 Knife</button>
-<button onclick="startGame('2048')">🔢 2048</button>
-
-<button onclick="startGame('Color Switch')">🎨 Color</button>
-<button onclick="startGame('Memory')">🧠 Memory</button>
-<button onclick="startGame('Target')">🎯 Target</button>
-<button onclick="startGame('Run')">🏃 Run</button>
-<button onclick="startGame('Arcade')">🕹️ Arcade</button>
-
-</div>
-
-<div id="gameArea">
 
 <canvas id="game" width="400" height="400"></canvas>
 
@@ -106,80 +46,32 @@ margin:5px;
 <button onclick="move('right')">➡️</button>
 </div>
 
-</div>
-
 <script>
 
-function startGame(name){
-alert(name + " yakında eklenecek!");
-}
+let canvas = document.getElementById("game");
+let ctx = canvas.getContext("2d");
 
-/* SNAKE */
-
-let canvas=document.getElementById("game")
-let ctx=canvas.getContext("2d")
-
-let snake=[{x:10,y:10}]
-let food={x:5,y:5}
-let dx=1
-let dy=0
-
-function startSnake(){
-
-document.getElementById("gameArea").style.display="block"
-
-setInterval(draw,120)
-
-}
+let x = 200;
+let y = 200;
+let size = 20;
 
 function draw(){
+ctx.clearRect(0,0,400,400);
 
-ctx.fillStyle="black"
-ctx.fillRect(0,0,400,400)
-
-ctx.fillStyle="lime"
-
-snake.forEach(s=>{
-ctx.fillRect(s.x*20,s.y*20,18,18)
-})
-
-ctx.fillStyle="red"
-ctx.fillRect(food.x*20,food.y*20,18,18)
-
-let head={x:snake[0].x+dx,y:snake[0].y+dy}
-
-snake.unshift(head)
-
-if(head.x==food.x && head.y==food.y){
-
-food.x=Math.floor(Math.random()*20)
-food.y=Math.floor(Math.random()*20)
-
-}else{
-snake.pop()
+ctx.fillStyle="lime";
+ctx.fillRect(x,y,size,size);
 }
-
-}
-
-document.addEventListener("keydown",e=>{
-
-if(e.key=="ArrowUp"){dx=0;dy=-1}
-if(e.key=="ArrowDown"){dx=0;dy=1}
-if(e.key=="ArrowLeft"){dx=-1;dy=0}
-if(e.key=="ArrowRight"){dx=1;dy=0}
-
-})
 
 function move(dir){
 
-if(dir=="up"){dx=0;dy=-1}
-if(dir=="down"){dx=0;dy=1}
-if(dir=="left"){dx=-1;dy=0}
-if(dir=="right"){dx=1;dy=0}
+if(dir=="up"){y-=20;}
+if(dir=="down"){y+=20;}
+if(dir=="left"){x-=20;}
+if(dir=="right"){x+=20;}
 
+draw();
 }
 
-</script>
+document.addEventListener("keydown",function(e){
 
-</body>
-</html>
+if(e.key=="ArrowUp"){move("up")}
