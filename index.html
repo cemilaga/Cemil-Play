@@ -1,35 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Cemil Play</title>
+<title>Cemil Play V2</title>
+
 <style>
 body{
-background:black;
+font-family:Arial;
+background:#0f0f0f;
 color:white;
 text-align:center;
-font-family:Arial;
+margin:0;
 }
+
+h1{
+margin:20px;
+font-size:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+padding:20px;
+}
+
 button{
-padding:15px;
-margin:10px;
-font-size:20px;
+padding:20px;
+font-size:16px;
+border:none;
+border-radius:10px;
+background:#00c3ff;
+color:white;
+cursor:pointer;
+}
+
+button:hover{
+background:#008cff;
+}
+
+#gameArea{
+display:none;
+margin-top:20px;
+}
+
+canvas{
+background:black;
+border:3px solid white;
+}
+
+.controls{
+margin-top:15px;
+}
+
+.controls button{
+width:70px;
+height:70px;
+font-size:25px;
+margin:5px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎮 Cemil Play</h1>
-<p>Oyun sitesine hoş geldiniz</p>
+<h1>🎮 Cemil Play V2</h1>
 
-<button onclick="alert('Oyun 1 yakında')">Oyun 1</button>
-<button onclick="alert('Oyun 2 yakında')">Oyun 2</button>
-<button onclick="alert('Oyun 3 yakında')">Oyun 3</button>
+<div class="grid">
 
-<br><br>
+<button onclick="startSnake()">🐍 Snake</button>
+<button onclick="startGame('Flappy Bird')">🐦 Flappy Bird</button>
+<button onclick="startGame('Tetris')">🧱 Tetris</button>
+<button onclick="startGame('Pong')">🏓 Pong</button>
+<button onclick="startGame('Breakout')">🧱 Breakout</button>
 
-<p>Yapımcı: İSMAİL EGE OĞUZHAN</p>
+<button onclick="startGame('Space Shooter')">🚀 Space</button>
+<button onclick="startGame('Car Racing')">🚗 Car</button>
+<button onclick="startGame('Maze')">🧠 Maze</button>
+<button onclick="startGame('Puzzle')">🧩 Puzzle</button>
+<button onclick="startGame('Basketball')">🏀 Basket</button>
+
+<button onclick="startGame('Soccer')">⚽ Soccer</button>
+<button onclick="startGame('Stack')">🏗️ Stack</button>
+<button onclick="startGame('Helix')">🌀 Helix</button>
+<button onclick="startGame('Knife')">🔪 Knife</button>
+<button onclick="startGame('2048')">🔢 2048</button>
+
+<button onclick="startGame('Color Switch')">🎨 Color</button>
+<button onclick="startGame('Memory')">🧠 Memory</button>
+<button onclick="startGame('Target')">🎯 Target</button>
+<button onclick="startGame('Run')">🏃 Run</button>
+<button onclick="startGame('Arcade')">🕹️ Arcade</button>
+
+</div>
+
+<div id="gameArea">
+
+<canvas id="game" width="400" height="400"></canvas>
+
+<div class="controls">
+<br>
+<button onclick="move('up')">⬆️</button><br>
+<button onclick="move('left')">⬅️</button>
+<button onclick="move('down')">⬇️</button>
+<button onclick="move('right')">➡️</button>
+</div>
+
+</div>
+
+<script>
+
+function startGame(name){
+alert(name + " yakında eklenecek!");
+}
+
+/* SNAKE */
+
+let canvas=document.getElementById("game")
+let ctx=canvas.getContext("2d")
+
+let snake=[{x:10,y:10}]
+let food={x:5,y:5}
+let dx=1
+let dy=0
+
+function startSnake(){
+
+document.getElementById("gameArea").style.display="block"
+
+setInterval(draw,120)
+
+}
+
+function draw(){
+
+ctx.fillStyle="black"
+ctx.fillRect(0,0,400,400)
+
+ctx.fillStyle="lime"
+
+snake.forEach(s=>{
+ctx.fillRect(s.x*20,s.y*20,18,18)
+})
+
+ctx.fillStyle="red"
+ctx.fillRect(food.x*20,food.y*20,18,18)
+
+let head={x:snake[0].x+dx,y:snake[0].y+dy}
+
+snake.unshift(head)
+
+if(head.x==food.x && head.y==food.y){
+
+food.x=Math.floor(Math.random()*20)
+food.y=Math.floor(Math.random()*20)
+
+}else{
+snake.pop()
+}
+
+}
+
+document.addEventListener("keydown",e=>{
+
+if(e.key=="ArrowUp"){dx=0;dy=-1}
+if(e.key=="ArrowDown"){dx=0;dy=1}
+if(e.key=="ArrowLeft"){dx=-1;dy=0}
+if(e.key=="ArrowRight"){dx=1;dy=0}
+
+})
+
+function move(dir){
+
+if(dir=="up"){dx=0;dy=-1}
+if(dir=="down"){dx=0;dy=1}
+if(dir=="left"){dx=-1;dy=0}
+if(dir=="right"){dx=1;dy=0}
+
+}
+
+</script>
 
 </body>
 </html>
